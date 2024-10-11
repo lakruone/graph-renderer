@@ -201,7 +201,7 @@
             connection). Note that the
             <b
               >columns represent the source nodes, and the rows represent the
-              destination nodes</b
+              target nodes</b
             >.
           </li>
           <li>
@@ -214,151 +214,45 @@
         <ul>
           <li>
             As part of the assignment, you will be working on filling in certain
-            "blanks" in the provided codebase. Here's what you will need to
-            implement and refine:
+            "blanks" in the provided codebase.
           </li>
-          <ol>
-            <li>
-              <b>Matrix Rendering Logic</b>
-              <ul>
-                <li>
-                  You will be responsible for
-                  <b>implementing the matrix rendering</b> component. This
-                  component displays the adjacency matrix based on the graph
-                  nodes and edges provided by the user input. You'll need to
-                  ensure that:
-                </li>
-                <ul>
-                  <li>
-                    The matrix is rendered correctly with alternating row/column
-                    colors.
-                  </li>
-                  <li>
-                    Cells with edges are highlighted (for example, using a
-                    background color).
-                  </li>
-                </ul>
-              </ul>
-            </li>
-            <li>
-              <b>Text Area Parsing Logic</b>
-              <ul>
-                <li>
-                  In the <code>TextArea</code>, users input graph notation like
-                  <code>A-&gt;B</code>, which you will need to parse. You'll
-                  implement logic that:
-                </li>
-                <ul>
-                  <li>Extracts unique nodes and their connections.</li>
-                  <li>
-                    Handles errors (such as malformed input) and returns
-                    specific feedback to the user.
-                  </li>
-                  <li>
-                    Limits the number of nodes to a
-                    <b>maximum of six (for simplicity).</b>
-                  </li>
-                  <li>
-                    Updates the state with the parsed graph nodes and edges,
-                    which will then be passed to the matrix component.
-                  </li>
-                </ul>
-              </ul>
-            </li>
-            <li>
-              <b>Next.js Server/Client Components</b>
-              <ul>
-                <li>
-                  The app is built using Next.js, so you will be working with
-                  both server-side and client-side components. You'll be
-                  responsible for:
-                </li>
-                <ul>
-                  <li>
-                    Using server actions to process and validate the input on
-                    the server.
-                  </li>
-                  <li>
-                    Returning errors or processed data (nodes and edges) to the
-                    client for rendering.
-                  </li>
-                  <li>
-                    Implementing Suspense to handle asynchronous data fetching
-                    and ensure smooth loading experiences.
-                  </li>
-                </ul>
-              </ul>
-            </li>
-            <li>
-              <b>Cookie Handling</b>
-              <ul>
-                <li>
-                  User authentication is currently implemented via cookies.
-                  You'll be expected to:
-                </li>
-                <ul>
-                  <li>
-                    Implement logic for checking and handling cookies (e.g.,
-                    <code>gr-name</code>) to ensure the user is authenticated.
-                  </li>
-                  <li>Redirect unauthenticated users back to the homepage.</li>
-                </ul>
-              </ul>
-            </li>
-            <li>
-              <b>Server Actions</b>
-              <ul>
-                <li>
-                  You will implement server-side functions in Next.js for
-                  parsing the input, validating it, and responding with either
-                  the adjacency data or an error message. You will:
-                </li>
-                <ul>
-                  <li>
-                    Write logic that checks the input for proper formatting.
-                  </li>
-                  <li>
-                    Return processed graph data or line-specific error feedback.
-                  </li>
-                </ul>
-              </ul>
-            </li>
-          </ol>
           <li>
-            Each of the above tasks have been described
+            All the tasks you should have been described
             <b>step-by-step</b> below. Simply follow these steps to complete the
             assessment.
           </li>
-          <h3>Overall App Flow</h3>
-          <ol>
-            <li>
-              <span class="label">Start</span> The user types their name, which
-              is saved in a cookie, and is redirected to the dashboard. The
-              presence of a cookie is checked in the dashboard to ensure the
-              user is authenticated.
-            </li>
-            <li>
-              <span class="label">Input</span> The user enters graph data into
-              the editor (e.g., A->B), adhering to the instructions.
-            </li>
-            <li>
-              <span class="label">Server Processing</span> The server processes
-              the input, validating it and extracting nodes and edges.
-            </li>
-            <li>
-              <span class="label">State Update</span> The Dashboard component
-              updates its state with the nodes and edges returned by the server.
-            </li>
-            <li>
-              <span class="label">Graph Display</span> The Matrix component
-              renders the adjacency matrix based on the user input.
-            </li>
-            <li>
-              <span class="label">Reset/Error Handling</span> The user can reset
-              the input or see detailed error messages if the input is invalid.
-            </li>
-          </ol>
         </ul>
+        <h3>Overall App Flow</h3>
+        <ol>
+          <li>
+            <span class="label">Start</span> The user types their name, which is
+            saved in a cookie, and is redirected to the
+            <code>dashboard/</code> route. The presence of a cookie is checked
+            in the dashboard to ensure the user is authenticated.
+          </li>
+          <li>
+            <span class="label">Input</span> The user enters graph data into the
+            editor (e.g., A->B), adhering to the instructions.
+          </li>
+          <li>
+            <span class="label">Server Processing</span> The server processes
+            the input, validating it and extracting nodes and edges.
+          </li>
+          <li>
+            <span class="label">State Update</span> The
+            <code>Dashboard</code> component updates its state with the nodes
+            and edges returned by the server.
+          </li>
+          <li>
+            <span class="label">Graph Display</span> The
+            <code>Matrix</code> component renders the adjacency matrix based on
+            the user input.
+          </li>
+          <li>
+            <span class="label">Reset/Error Handling</span> The user can reset
+            the input or see detailed error messages if the input is invalid.
+          </li>
+        </ol>
         <h3>Tech Stack</h3>
         <ul>
           <li>
@@ -368,9 +262,9 @@
           </li>
           <li>
             <span class="label">React (with Suspense)</span> The app uses React
-            components with hooks (useState, useEffect) to manage state and
-            handle dynamic updates. Suspense will be used for managing
-            asynchronous actions.
+            components with hooks (<code>useState</code>,
+            <code>useEffect</code>) to manage state and handle dynamic updates.
+            Suspense will be used for managing asynchronous actions.
           </li>
           <li>
             <span class="label">TypeScript</span> You'll work with a TypeScript
@@ -398,7 +292,7 @@
         <ol>
           <li>
             Fork
-            <a href="https://github.com/amresh-is-cool/review-page"
+            <a href="https://github.com/Amresh-Augments/graph-renderer"
               >this GitHub respository</a
             >
             onto your personal GitHub account and
@@ -426,7 +320,7 @@
               </li>
               <li>
                 Your final submission will be made as a <b>pull request</b> to
-                <a href="#">this Github repository</a>. You will receive your
+                <a href="https://github.com/Amresh-Augments/graph-renderer">this Github repository</a>. You will receive your
                 score as a comment to this pull request on GitHub itself.
               </li>
               <li>
@@ -454,7 +348,7 @@
       </section>
 
       <section>
-        <h2>Task 2 - Completing the login page</h2>
+        <h2>Task 2 - Completing the root route</h2>
         <span class="label">20 marks</span>
         <ol>
           <li>
@@ -469,9 +363,9 @@
             />
           </div>
           <li>
-            Recreate the above UI as a
+            Recreate the above UI as the
             <b
-              ><span class="important">client component</span> - as closely as
+              ><span class="important">root app route</span> - as closely as
               possible</b
             >
             - using responsive design principles, by following these steps:
@@ -564,12 +458,12 @@
       </section>
 
       <section>
-        <h2>Task 3 - Completing the dashboard page</h2>
+        <h2>Task 3 - Completing the dashboard route</h2>
         <span class="label">40 marks</span>
         <ol>
           <li>Open the <code>src/app/dashboard/page.tsx</code> file.</li>
           <li>
-            Implement the dashboard page as a
+            Implement the dashboard route as a
             <span class="important">server component</span> using the following
             steps:
             <ol>

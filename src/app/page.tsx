@@ -15,7 +15,6 @@ export default function Page() {
       <Watermark />
       {error && <Error message={error} />}
       {/* // CODE FOR TASK 2.2 -----------------------------------------
-      
       // END OF CODE FOR TASK 2.2 ---------------------------------- */}
     </main>
   );
