@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructions | Graph Renderer</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+      :root {
+        --primary: #149167;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--primary);
+        margin: 0;
+      }
+
+      section#note {
+        background-color: #ffffff;
+        margin: 0 10vw;
+        padding: 1rem 2rem;
+      }
+
+      section#note > section {
+        margin-bottom: 2rem;
+        padding-left: 1rem;
+        border-left: 5px solid #ccc;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      ol,
+      ul {
+        line-height: 1.5;
+      }
+
+      li {
+        margin: 1rem 0;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary);
+        margin: 0;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        border-bottom: 1px solid black;
+      }
+
+      h3 {
+        color: var(--primary);
+      }
+
+      span.label {
+        background-color: var(--primary);
+        padding: 0 10px;
+        color: white;
+        margin-right: 0.5rem;
+        font-weight: bold;
+      }
+
+      span.important-tag {
+        background-color: #ff0000;
+        padding: 0 10px;
+        color: white;
+        font-weight: bold;
+      }
+
+      p.important-tag {
+        background-color: #ff0000;
+        padding: 0 10px;
+        color: white;
+        font-weight: bold;
+      }
+
+      span.important {
+        color: #ff0000;
+        font-weight: bold;
+      }
+
+      div#image-container img {
+        height: 550px;
+        border-radius: 0.5rem;
+        object-fit: cover;
+      }
+
+      code,
+      pre {
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #ccc;
+        padding: 0 5px;
+      }
+
+      p.muted {
+        color: #777;
+        margin-top: 5px;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      @media only screen and (max-width: 1000px) {
+        section#note {
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section id="note">
+      <header>
+        <h1>Instructions for Next.js Developer Technical Assessment</h1>
+        <p>
+          <span class="label">Goal</span>Complete a Next.js tool to help parse
+          and visualize a graph data structure as an adjacency matrix.
+        </p>
+        <p>
+          <span class="label">Score</span>Out of 80 - for code quality,
+          functionality, completedness, fidelity, animations and overall design.
+        </p>
+        <p><span class="label">Maximum Time</span>3 hours</p>
+        <div id="image-container">
+          <img
+            src="./images/image-1.png"
+            alt="ClimateCompare dashboard without data"
+            width="300"
+          />
+          <img
+            src="./images/image-2.png"
+            alt="ClimateCompare dashboard with data"
+            width="500"
+          />
+        </div>
+      </header>
+
+      <section>
+        <h2>Project Details</h2>
+        <h3>Description</h3>
+        <ul>
+          <li>
+            This project is an interactive
+            <b
+              >graph-building app designed to visualize directed graphs as
+              adjacency matrices</b
+            >. It allows users to input graph data in a simple notation (e.g.,
+            <code>A-&gt;B</code> for a connection from node A to node B), and
+            the app generates a corresponding adjacency matrix. This matrix
+            visually represents connections between nodes, helping users
+            understand graph structures easily.
+          </li>
+          <li>
+            To reminder yourself of how
+            <b>graphs (as a data structure) and adjacency matrices</b> work,
+            please refer to this
+            <a
+              href="https://codedamn.com/news/programming/introduction-to-adjacency-matrix-for-graphs"
+              >Codedamn article</a
+            >.
+          </li>
+          <li>
+            The following GIF depicts how the
+            <b>app is expected to function</b> after you complete this
+            assessment:
+          </li>
+          <div id="image-container">
+            <img
+              src="./images/image-3.gif"
+              alt="Graph Renderer App"
+              width="1100"
+            />
+          </div>
+        </ul>
+        <h3>Core Features</h3>
+        <ul>
+          <li>
+            <span class="label">Username w/ Cookies</span> A simple login page
+            where users enter their name, which is stored in a cookie and
+            displayed in the header of the app.
+          </li>
+          <li>
+            <span class="label">Graph Input Editor</span> Users input node
+            connections in a <code>TextArea</code>, following a specific
+            notation (like <code>A-&gt;B</code>), and submit it for processing.
+          </li>
+          <li>
+            <span class="label">Matrix Rendering</span> Once the input is
+            processed, the app dynamically renders an adjacency matrix that
+            displays whether nodes are connected (1 for a connection, 0 for no
+            connection). Note that the
+            <b
+              >columns represent the source nodes, and the rows represent the
+              destination nodes</b
+            >.
+          </li>
+          <li>
+            <span class="label">String Parsing and Feedback</span> The app
+            includes error handling that gives users clear feedback if the input
+            is invalid (e.g., incorrect formatting or missing nodes).
+          </li>
+        </ul>
+        <h3>Your Role</h3>
+        <ul>
+          <li>
+            As part of the assignment, you will be working on filling in certain
+            "blanks" in the provided codebase. Here's what you will need to
+            implement and refine:
+          </li>
+          <ol>
+            <li>
+              <b>Matrix Rendering Logic</b>
+              <ul>
+                <li>
+                  You will be responsible for
+                  <b>implementing the matrix rendering</b> component. This
+                  component displays the adjacency matrix based on the graph
+                  nodes and edges provided by the user input. You'll need to
+                  ensure that:
+                </li>
+                <ul>
+                  <li>
+                    The matrix is rendered correctly with alternating row/column
+                    colors.
+                  </li>
+                  <li>
+                    Cells with edges are highlighted (for example, using a
+                    background color).
+                  </li>
+                </ul>
+              </ul>
+            </li>
+            <li>
+              <b>Text Area Parsing Logic</b>
+              <ul>
+                <li>
+                  In the <code>TextArea</code>, users input graph notation like
+                  <code>A-&gt;B</code>, which you will need to parse. You'll
+                  implement logic that:
+                </li>
+                <ul>
+                  <li>Extracts unique nodes and their connections.</li>
+                  <li>
+                    Handles errors (such as malformed input) and returns
+                    specific feedback to the user.
+                  </li>
+                  <li>
+                    Limits the number of nodes to a
+                    <b>maximum of six (for simplicity).</b>
+                  </li>
+                  <li>
+                    Updates the state with the parsed graph nodes and edges,
+                    which will then be passed to the matrix component.
+                  </li>
+                </ul>
+              </ul>
+            </li>
+            <li>
+              <b>Next.js Server/Client Components</b>
+              <ul>
+                <li>
+                  The app is built using Next.js, so you will be working with
+                  both server-side and client-side components. You'll be
+                  responsible for:
+                </li>
+                <ul>
+                  <li>
+                    Using server actions to process and validate the input on
+                    the server.
+                  </li>
+                  <li>
+                    Returning errors or processed data (nodes and edges) to the
+                    client for rendering.
+                  </li>
+                  <li>
+                    Implementing Suspense to handle asynchronous data fetching
+                    and ensure smooth loading experiences.
+                  </li>
+                </ul>
+              </ul>
+            </li>
+            <li>
+              <b>Cookie Handling</b>
+              <ul>
+                <li>
+                  User authentication is currently implemented via cookies.
+                  You'll be expected to:
+                </li>
+                <ul>
+                  <li>
+                    Implement logic for checking and handling cookies (e.g.,
+                    <code>gr-name</code>) to ensure the user is authenticated.
+                  </li>
+                  <li>Redirect unauthenticated users back to the homepage.</li>
+                </ul>
+              </ul>
+            </li>
+            <li>
+              <b>Server Actions</b>
+              <ul>
+                <li>
+                  You will implement server-side functions in Next.js for
+                  parsing the input, validating it, and responding with either
+                  the adjacency data or an error message. You will:
+                </li>
+                <ul>
+                  <li>
+                    Write logic that checks the input for proper formatting.
+                  </li>
+                  <li>
+                    Return processed graph data or line-specific error feedback.
+                  </li>
+                </ul>
+              </ul>
+            </li>
+          </ol>
+          <li>
+            Each of the above tasks have been described
+            <b>step-by-step</b> below. Simply follow these steps to complete the
+            assessment.
+          </li>
+          <h3>Overall App Flow</h3>
+          <ol>
+            <li>
+              <span class="label">Start</span> The user types their name, which
+              is saved in a cookie, and is redirected to the dashboard. The
+              presence of a cookie is checked in the dashboard to ensure the
+              user is authenticated.
+            </li>
+            <li>
+              <span class="label">Input</span> The user enters graph data into
+              the editor (e.g., A->B), adhering to the instructions.
+            </li>
+            <li>
+              <span class="label">Server Processing</span> The server processes
+              the input, validating it and extracting nodes and edges.
+            </li>
+            <li>
+              <span class="label">State Update</span> The Dashboard component
+              updates its state with the nodes and edges returned by the server.
+            </li>
+            <li>
+              <span class="label">Graph Display</span> The Matrix component
+              renders the adjacency matrix based on the user input.
+            </li>
+            <li>
+              <span class="label">Reset/Error Handling</span> The user can reset
+              the input or see detailed error messages if the input is invalid.
+            </li>
+          </ol>
+        </ul>
+        <h3>Tech Stack</h3>
+        <ul>
+          <li>
+            <span class="label">Next.js (13+)</span> You'll work with both
+            server and client components in Next.js to handle input processing
+            and UI rendering.
+          </li>
+          <li>
+            <span class="label">React (with Suspense)</span> The app uses React
+            components with hooks (useState, useEffect) to manage state and
+            handle dynamic updates. Suspense will be used for managing
+            asynchronous actions.
+          </li>
+          <li>
+            <span class="label">TypeScript</span> You'll work with a TypeScript
+            codebase to ensure type safety, especially when dealing with graph
+            data.
+          </li>
+          <li>
+            <span class="label">Tailwind CSS</span> You'll use Tailwind to style
+            the matrix and various UI elements.
+          </li>
+          <li>
+            <span class="label">Version Control</span> Git and GitHub are used
+            to host this project's repository and for submitting your work.
+          </li>
+          <li>
+            Since this assessment will primarily use Git & GitHub, you will need
+            <b>a GitHub account</b> and some experience working with the Git
+            CLI.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Task 1 - Setting up your development environment</h2>
+        <ol>
+          <li>
+            Fork
+            <a href="https://github.com/amresh-is-cool/review-page"
+              >this GitHub respository</a
+            >
+            onto your personal GitHub account and
+            <b>clone it to your machine</b> - this folder contains the skeleton
+            for the project you will be working on.
+            <span class="important"
+              >The time allocation (max. 3 hours) will start from the point you
+              fork this repository.</span
+            >
+          </li>
+          <li>
+            Navigate to this repo's folder from your machine. Inside this folder
+            you see a single folder named <code>src/</code>. This is where you
+            will spend your time writing designing and code. You can ignore the
+            folder named <code>/instructions</code>.
+            <ul>
+              <li>
+                <b
+                  >Ensure that you only edit / append code to the respective
+                  files within these folders which have been specified in the
+                  instructions. Do not change any other files, as this may
+                  result in our test scripts failing to score your
+                  submission.</b
+                >
+              </li>
+              <li>
+                Your final submission will be made as a <b>pull request</b> to
+                <a href="#">this Github repository</a>. You will receive your
+                score as a comment to this pull request on GitHub itself.
+              </li>
+              <li>
+                Feel free to commit and push regularly to your personal fork of
+                our repository. However, only submit a pull request to our
+                GitHub repository
+                <b>after you complete the entire assessment.</b>
+              </li>
+            </ul>
+          </li>
+          <li>Open the repo's folder using your favorite text editor / IDE.</li>
+          <li>
+            Run <code>npm i</code> via the terminal in the
+            <code>src/</code> folder to install the necessary packages.
+          </li>
+          <li>
+            The tasks below will specify if any <b>additional files</b> need to
+            be added to this directory or its subdirectories.
+            <b>Don't add any additional files otherwise.</b>
+          </li>
+          <span class="important"
+            >Task 1 is now complete. You may now move on to Task 2.</span
+          >
+        </ol>
+      </section>
+
+      <section>
+        <h2>Task 2 - Completing the login page</h2>
+        <span class="label">20 marks</span>
+        <ol>
+          <li>
+            Open the <code>src/app/page.tsx</code> file. Use the following GIF
+            for your reference for this task:
+          </li>
+          <div id="image-container">
+            <img
+              src="./images/image-4.gif"
+              alt="Graph Renderer Login Page"
+              width="1100"
+            />
+          </div>
+          <li>
+            Recreate the above UI as a
+            <b
+              ><span class="important">client component</span> - as closely as
+              possible</b
+            >
+            - using responsive design principles, by following these steps:
+            <ol type="i">
+              <li>
+                Set up the main layout by using a
+                <code>&lt;section&gt;</code> element for layout and apply
+                Tailwind CSS classes to center content both vertically and
+                horizontally.
+              </li>
+              <li>
+                Greet the user with a <code>&lt;div&gt;</code> containing a
+                welcome message. Add Tailwind classes to add a
+                <b>pulsing animation and gradient effect</b> from teal colors to
+                make the text dynamic.
+              </li>
+              <li>
+                Create a form container by adding a
+                <code>&lt;div&gt;</code> with a 2px border, 5px padding and
+                background color <code>bg-slate-50</code> to create a rounded
+                container. Include a <code>&lt;label&gt;</code> with "What's
+                your name?".
+              </li>
+              <li>
+                Add an input field to the container using the existing
+                <code>Input</code> component with a suitable <code>id</code>,
+                <code>type</code>, and <code>placeholder</code> text.
+              </li>
+              <li>
+                Include a submit button with the label "Continue" using the
+                provided <code>Button</code> component with
+                <code>type = "submit"</code> and <code>theme = "primary"</code>.
+              </li>
+              <li>
+                Handle form submission by adding an action inside the form that
+                calls the imported asynchronous function (e.g.,
+                <code>redirectToDashboard</code>). If the action fails, set an
+                error using the state variable <code>error</code>.
+              </li>
+              <li>
+                Use Tailwind CSS classes like <code>border-gray-300</code>,
+                <code>rounded</code>, <code>text-gray-600</code> for final
+                touches, ensuring consistent design and spacing.
+              </li>
+            </ol>
+            <p class="muted">
+              Write code for this task within the TASK 2.2 comment fence in
+              <code>page.tsx</code>
+            </p>
+          </li>
+          <li>Open the <code>src/app/actions.ts</code> file.</li>
+          <li>
+            Complete the <code>redirectToDashboard</code> function based on the
+            following steps:
+            <ol>
+              <li>
+                Get the user's name from <code>formData</code> and cast it as a
+                string.
+              </li>
+              <li>
+                Ensure the name is not empty; return the error message
+                <code>"Hey, your name is missing!"</code> if it is.
+              </li>
+              <li>
+                Clean the name by trimming, lowercasing, and removing extra
+                whitespace.
+              </li>
+              <li>
+                Use the <code>cookies</code> API to set a cookie with the name
+                <code>gr-name</code> and the cleaned value.
+              </li>
+              <li>
+                If the above was successful, call the
+                <code>redirect</code> function to navigate the user to
+                <code>/dashboard</code>.
+              </li>
+            </ol>
+            <p class="muted">
+              Write code for this task within the TASK 2.4 comment fence in
+              <code>actions.ts</code>
+            </p>
+          </li>
+          <span class="important"
+            >Task 2 is now complete. Feel free to test your code using
+            <code>npm run dev</code> on the <code>src/</code> folder. Commit and
+            push your work to your personal forked repository. You may now move
+            on to Task 3.</span
+          >
+        </ol>
+      </section>
+
+      <section>
+        <h2>Task 3 - Completing the dashboard page</h2>
+        <span class="label">40 marks</span>
+        <ol>
+          <li>Open the <code>src/app/dashboard/page.tsx</code> file.</li>
+          <li>
+            Implement the dashboard page as a
+            <span class="important">server component</span> using the following
+            steps:
+            <ol>
+              <li>
+                Use the <code>cookies</code> function to retrieve the
+                <code>gr-name</code> cookie from the user's browser.
+              </li>
+              <li>
+                If the <code>gr-name</code> cookie does not exist or has no
+                value, use the <code>redirect</code> function to send the user
+                back to the homepage (<code>/</code>).
+              </li>
+              <li>
+                If the <code>gr-name</code> cookie exists, render the
+                <code>Header</code> component wrapped inside a
+                <code>Suspense</code> tag with a fallback of
+                <code>HeaderSkeleton</code>.
+              </li>
+              <li>
+                Use the <code>Dashboard</code> component to render the dashboard
+                interface.
+              </li>
+            </ol>
+            <p class="muted">
+              Write code for this task within the TASK 3.2 comment fence in
+              <code>page.tsx</code>
+            </p>
+          </li>
+          <li>Open the <code>src/app/dashboard/actions.tsx</code> file.</li>
+          <li>
+            Complete the <code>renderGraph</code>
+            <span class="important">server action</span>, which is called when a
+            user submits graph notation data via the "Generate" button in the
+            <code>dashboard.tsx</code> component.<br />This form actions
+            recieves <code>formData</code> as input, from which the
+            <code>graph-notation</code> key has been extracted as a string.<br />This
+            string represents the graph in a specific notation format and
+            processes the input to produce nodes and edges that will be used to
+            render the graph back in the <code>dashboard.tsx</code>.<br /><br />
+            Follow these steps to complete the
+            <code>renderGraph</code> function:
+            <ol>
+              <li>
+                <strong>Input Format:</strong>
+                The input will be a multiline string where each line represents
+                an edge in the graph using the following format:
+                <ul>
+                  <li>
+                    Each line should follow the pattern:
+                    <code>source->target</code>.
+                  </li>
+                  <li>
+                    Each source and target must be a single character, and no
+                    spaces are allowed in a line.
+                  </li>
+                  <li>
+                    Each line represents a directed, unweighted edge from the
+                    source node to the target node.
+                  </li>
+                </ul>
+                Example input:
+                <pre>
+A->B
+B->C
+C->D</pre
+                >
+              </li>
+
+              <li>
+                <strong>Error Handling:</strong>
+                <ul>
+                  <li>
+                    If any line does not follow the expected
+                    <code>source->target</code> pattern, you should throw an
+                    error and return a helpful error message.
+                    <ul>
+                      <li>
+                        For example, if the input is malformed, return an error
+                        message like:
+                        <code
+                          >Hey, there was an error parsing line 3 of your graph
+                          notation!</code
+                        >.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    If the parsing process fails for any reason, return an error
+                    message like:
+                    <code
+                      >Hey, there was an error parsing your graph
+                      notation!</code
+                    >.
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <strong>Max Nodes Constraint:</strong>
+                <ul>
+                  <li>
+                    You should only allow up to <code>6</code> nodes, set by the
+                    <code>MAX_NODES</code> constant. If the input contains more
+                    than 6 unique nodes, slice the list to only include the
+                    first 6.
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <strong>Node and Edge Processing:</strong>
+                <ul>
+                  <li>
+                    For each valid line, extract the source and target nodes.
+                  </li>
+                  <li>
+                    Store each node in a <code>Set</code> to ensure uniqueness
+                    (since a node may appear in multiple edges).
+                  </li>
+                  <li>
+                    Also store each edge in a <code>Set</code>, ensuring that
+                    duplicate edges are not included.
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <strong>Output Format:</strong>
+                Once the input is parsed, return an object with two properties:
+                <ul>
+                  <li>
+                    <code>edges</code>: An array of unique edges, each
+                    represented as a concatenation of the source and target
+                    (e.g., <code>"AB"</code>).
+                  </li>
+                  <li>
+                    <code>nodes</code>: An array of unique node names, up to a
+                    maximum of 6.
+                  </li>
+                </ul>
+              </li>
+            </ol>
+            <h3>Examples</h3>
+            <p>
+              Here are a few examples of valid inputs to the server action
+              (after parsing <code>formData</code>) and their expected outputs:
+            </p>
+            <ul>
+              <li>Example #1:</li>
+              <span class="important-tag">Input</span>
+              <pre>
+A->B
+B->C
+C->D</pre
+              >
+              <p><span class="important-tag">Output</span></p>
+              <pre>
+{
+  edges: ["AB", "BC", "CD"],
+  nodes: ["A", "B", "C", "D"]
+}</pre
+              >
+              <li>Example #2:</li>
+              <span class="important-tag">Input</span>
+              <pre>
+A->B
+B->C
+C->B
+D->E
+C->B
+F->G</pre
+              >
+              <p><span class="important-tag">Output</span></p>
+              <pre>
+{
+  edges: ["AB","BC", "CB", "DE", "FG"], // Duplicate edges are removed
+  nodes: ["A", "B", "C", "D", "E", "F"]  // Only the first 6 nodes
+}</pre
+              >
+
+              <li>Example #3:</li>
+              <span class="important-tag">Input</span>
+              <pre>
+A->B
+C-D</pre
+              >
+              <p><span class="important-tag">Output</span></p>
+              <pre>
+{
+  message: "Hey, there was an error parsing line 2 of your graph notation!"
+}</pre
+              >
+            </ul>
+            <p class="muted">
+              Write code for this task within the TASK 3.4 comment fence in
+              <code>actions.ts</code>
+            </p>
+          </li>
+          <span class="important"
+            >Task 3 is now complete. Feel free to test your code using
+            <code>npm run dev</code> on the <code>src/</code> folder. Commit and
+            push your work to your personal forked repository. You may now move
+            on to Task 4.</span
+          >
+        </ol>
+      </section>
+
+      <section>
+        <h2>Task 4 - Completing the dashboard component</h2>
+        <span class="label">20 marks</span>
+        <ol>
+          <li>
+            Open the <code>src/components/dashboard.tsx</code> file. Use the
+            following GIF for your reference for this task:
+          </li>
+          <div id="image-container">
+            <img
+              src="./images/image-5.gif"
+              alt="Graph Renderer Dashboard Page"
+              width="1100"
+            />
+          </div>
+          <li>
+            Recreate the above component as a
+            <b
+              ><span class="important">client component</span> - as closely as
+              possible</b
+            >
+            - using responsive design principles, by following these steps. Note
+            that some of the tasks have been completed for you:
+            <ol type="i">
+              <li>
+                The dashboard should have a main section with a background color
+                of <code>bg-teal-100</code> and should be a flex container.
+                Inside, create two primary sections: one for the instructions
+                and one for the "Graph Editor" and "Adjacency Matrix".
+                <br /><span class="important-tag"
+                  >This has been completed for you.</span
+                >
+              </li>
+              <li>
+                Create a header with a background color of
+                <code>bg-teal-500</code> and text color of
+                <code>text-white</code>. Use bold and uppercase text with
+                tracking for better readability. <br /><span
+                  class="important-tag"
+                  >This has been completed for you.</span
+                >
+              </li>
+              <li>
+                Under the header, include a bulleted list explaining how to use
+                the graph editor. Use the <code>text-teal-700</code> and
+                <code>font-bold</code> classes to highlight important text.
+                <br /><span class="important-tag"
+                  >This has been completed for you.</span
+                >
+              </li>
+              <li>
+                Below the instructions, create the "Graph Editor" interface.
+                This should have a label instructing the user to enter their
+                graph notation.
+              </li>
+              <li>
+                Add a <code>TextArea</code> component for the graph notation
+                input (e.g., <code>A->B</code>). It should have an
+                <code>id = "graph-notation"</code> and a
+                <code>placeholder = "e.g. A->B"</code>.
+              </li>
+              <li>
+                Add a form that handles submissions and resets. The form should
+                call the <code>renderGraph</code> function with the
+                <code>formData</code>.
+              </li>
+              <li>
+                If there is an error during form submission, display it using
+                the <code>Error</code> component, and reset the nodes and edges
+                state.
+              </li>
+              <li>
+                If successful, display the graph nodes and edges using the
+                form's response.
+              </li>
+              <li>
+                Add a "Generate" button using the
+                <code>Button</code> component with the
+                <code>primary</code> theme for submitting the form.
+              </li>
+              <li>
+                Add a "Clear" button using the <code>Button</code> component
+                with the <code>secondary</code> theme to reset the form.
+              </li>
+              <li>
+                Next to the "Graph Editor", create the "Adjacency Matrix"
+                section with the same header styling.
+              </li>
+              <li>
+                Use the <code>Matrix</code> component to display the adjacency
+                matrix. Pass in the <code>graphNodes</code> and
+                <code>graphEdges</code> as props to the
+                <code>Matrix</code> component.
+              </li>
+              <li>
+                Use the <code>useState</code> hook to manage the
+                <code>error</code>, <code>graphNodes</code>, and
+                <code>graphEdges</code> states. <br /><span
+                  class="important-tag"
+                  >The states have been initialized for you.</span
+                >
+              </li>
+              <li>
+                If an error occurs, display the error message using the
+                <code>Error</code> component.
+              </li>
+              <li>
+                If the form is reset, clear the error, graph nodes, and graph
+                edges states.
+              </li>
+              <li>
+                Make sure to use the provided custom components:
+                <code>Button</code>, <code>Error</code>, <code>Matrix</code>,
+                and <code>TextArea</code>.
+              </li>
+            </ol>
+            <p class="muted">
+              Write code for this task within the TASK 4.2 comment fence in
+              <code>dashboard.tsx</code>
+            </p>
+          </li>
+          <p class="important-tag">
+            Congratulations on completing this assessment! You may now submit a
+            pull request (ensuring that all local changes have been pushed) to
+            the main repository from your forked repository to confirm your
+            submission.
+          </p>
+          <p class="important-tag">
+            Make sure to include your name in the pull request message, along
+            with any additional details in a README.md if you wish to explain /
+            comment on any of the solutions for the previous tasks.
+          </p>
+        </ol>
+      </section>
+    </section>
+  </body>
+</html>
